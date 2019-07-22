@@ -100,6 +100,25 @@ func (c *Client) SendHTMLEmail(from, to, subject, html string, attachments []Att
 	return c.SendEmailMessage(msg)
 }
 
+// SendEmailWithTemplate is a simple method to send an email based on a Mercury template
+func (c *Client) SendEmailWithTemplate(from, to, subject, templateName string, templateData map[string]string, attachments []Attachment) (response SendMessageResponse, err error) {
+	msg := NewMessage()
+
+	m := Message{}
+	m.FromEmail = from
+	m.To = []ToAddress{ToAddress{Email: to}}
+	m.Subject = subject
+	m.TemplateName = templateName
+	m.TemplateData = templateData
+
+	if len(attachments) > 0 {
+		m.Attachments = attachments
+	}
+
+	msg.Message = m
+	return c.SendEmailMessage(msg)
+}
+
 // SendEmailMessage sends the email message with all the indicated configuration to Mercury
 func (c *Client) SendEmailMessage(msg EmailMessage) (response SendMessageResponse, err error) {
 	payload, errJSON := ffjson.Marshal(msg)
