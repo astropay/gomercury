@@ -9,9 +9,8 @@ import (
 	"github.com/pquerna/ffjson/ffjson"
 )
 
-const (
-	MaxRetries = 1
-)
+// MaxRetries contains the max numer of retries if the request fails due to invalid access token
+const MaxRetries = 1
 
 // Service interface holds the
 type Service interface {

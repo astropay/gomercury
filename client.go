@@ -7,12 +7,14 @@ import (
 	"github.com/pquerna/ffjson/ffjson"
 )
 
+// DefaultHTTPTimeout contains the default timeout for HTTP requests
+const DefaultHTTPTimeout = 30
+
 // New creates a new instance of Mercury client
 func New(mercuryURL string, timeout int, useAuth bool) *Client {
 
 	if timeout == 0 {
-		// default is 30 seconds
-		timeout = 30
+		timeout = DefaultHTTPTimeout
 	}
 
 	return &Client{
@@ -111,7 +113,7 @@ func (c *Client) SendEmailMessage(msg EmailMessage) (response SendMessageRespons
 
 	if errRequest != nil {
 		// there was an error calling mercury service
-		err = NewError(ErrCodeInternal, fmt.Sprintf("error calling Mercury service: %s", errRequest.Error()))
+		err = NewError(ErrCodeInternal, fmt.Sprintf("error calling mercury service: %s", errRequest.Error()))
 		return
 	}
 
