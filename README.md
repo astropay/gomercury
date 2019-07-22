@@ -1,2 +1,3 @@
 # gomercury
-Go Mercury Client
+
+Mercury Client for Go baesd projects
