@@ -101,7 +101,7 @@ func (c *Client) SendHTMLEmail(from, to, subject, html string, attachments []Att
 }
 
 // SendEmailWithTemplate is a simple method to send an email based on a Mercury template
-func (c *Client) SendEmailWithTemplate(from, to, subject, templateName string, templateData map[string]string, attachments []Attachment) (response SendMessageResponse, err error) {
+func (c *Client) SendEmailWithTemplate(from, to, subject, templateName, language string, templateData map[string]string, attachments []Attachment) (response SendMessageResponse, err error) {
 	msg := NewMessage()
 
 	m := Message{}
@@ -110,6 +110,11 @@ func (c *Client) SendEmailWithTemplate(from, to, subject, templateName string, t
 	m.Subject = subject
 	m.TemplateName = templateName
 	m.TemplateData = templateData
+
+	// if no language was defined, use the default (en)
+	if language != "" {
+		m.TemplateLanguage = language
+	}
 
 	if len(attachments) > 0 {
 		m.Attachments = attachments
