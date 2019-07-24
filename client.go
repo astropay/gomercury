@@ -137,7 +137,7 @@ func (c *Client) SendEmailMessage(msg EmailMessage) (response SendMessageRespons
 
 	if errRequest != nil {
 		// there was an error calling mercury service
-		err = NewError(ErrCodeInternal, fmt.Sprintf("error calling mercury service: %s", errRequest.Error()))
+		err = NewError(ErrCodeInternal, fmt.Sprintf("error calling mercury: %s", errRequest.Error()))
 		return
 	}
 
@@ -150,7 +150,7 @@ func (c *Client) SendEmailMessage(msg EmailMessage) (response SendMessageRespons
 		}
 	} else {
 		// service returned other code different than 200
-		err = NewError(ErrCodeInternal, fmt.Sprintf("Mercury returned status code %v", httpResponse.StatusCode))
+		err = NewError(ErrCodeInternal, fmt.Sprintf("mercury returned status code %v", httpResponse.StatusCode))
 	}
 
 	return

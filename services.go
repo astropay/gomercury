@@ -1,6 +1,7 @@
 package gomercury
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -135,6 +136,10 @@ func (sc *ServiceComm) getAccessToken() (token string, err error) {
 	if sc.storedToken != "" {
 		token = sc.storedToken
 		return
+	}
+
+	if sc.authServiceURL == "" {
+		return "", errors.New("auth-service URL not configured")
 	}
 
 	url := fmt.Sprintf("%s/access_token", sc.authServiceURL)
