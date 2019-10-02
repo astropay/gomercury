@@ -30,9 +30,9 @@ type ToAddress struct {
 
 // Attachment represents an email attachment file
 type Attachment struct {
-	Content string `json:"content"`
-	Type    string `json:"type"`
-	Name    string `json:"name"`
+	Content string `json:"content,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Name    string `json:"name,omitempty"`
 }
 
 // SendOptions has the email sending options
