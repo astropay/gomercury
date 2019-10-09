@@ -86,16 +86,16 @@ func (sc *ServiceComm) DoRequest(path string, mehtod string, contentType string,
 				return
 			}
 
-			httpRequest.Header["Authorization"] = fmt.Sprintf("Bearer %s", accessToken)
+			httpRequest.Header["Authorization"] = []string{fmt.Sprintf("Bearer %s", accessToken)}
 		}
 
 		// set headers
-		httpRequest.Header["User-Agent"] = "gomercury"
+		httpRequest.Header["User-Agent"] = []string{"gomercury"}
 
 		if contentType != "" {
-			httpRequest.Header["Content-Type"] = contentType
+			httpRequest.Header["Content-Type"] = []string{contentType}
 		} else {
-			httpRequest.Header["Content-Type"] = "application/json"
+			httpRequest.Header["Content-Type"] = []string{"application/json"}
 		}
 
 		// payload
@@ -144,8 +144,8 @@ func (sc *ServiceComm) getAccessToken() (token string, err error) {
 
 	url := fmt.Sprintf("%s/access_token", sc.authServiceURL)
 	httpRequest := gorequest.New().Post(url)
-	httpRequest.Header["Content-Type"] = "application/json"
-	httpRequest.Header["User-Agent"] = "purchase-service"
+	httpRequest.Header["Content-Type"] = []string{"application/json"}
+	httpRequest.Header["User-Agent"] = []string{"purchase-service"}
 
 	payload := fmt.Sprintf(`{ "key":"%s", "secret":"%s" }`, sc.key, sc.secret)
 
